@@ -1,0 +1,199 @@
+<div class="">
+  <div style="height:100vh;">
+    <div class="">
+      <div class="shadow w-20 p-5 position-absolute top-50 start-50 translate-middle">
+        <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+          <h4 class="display-6 text-center py-2">Employee Database</h4>
+          
+          <div class="">
+            <label for="ename">Name</label>
+            <div class="">
+              <input id="ename" required #ename="ngModel" ngModel name="ename" type="text"
+                class="form-control" placeholder="Enter employee name">
+              <div *ngIf="ename.invalid && ename.touched">
+                <small class="text-danger" *ngIf="ename.errors?.['required']">Required</small>
+              </div>
+            </div>
+          </div><br>
+          
+          <div class="">
+            <label for="mobileno">Mobile No</label>
+            <div class="">
+              <input id="mobileno" required #mobileno="ngModel" ngModel name="mobileno" type="text"
+                class="form-control" placeholder="Enter mobile number">
+              <div *ngIf="mobileno.invalid && mobileno.touched">
+                <small class="text-danger" *ngIf="mobileno.errors?.['required']">Required</small>
+              </div>
+            </div>
+          </div><br>
+          
+          <div class="">
+            <label for="eaddress">Address</label>
+            <div class="">
+              <input id="eaddress" required #eaddress="ngModel" ngModel name="eaddress" type="text"
+                class="form-control" placeholder="Enter address">
+              <div *ngIf="eaddress.invalid && eaddress.touched">
+                <small class="text-danger" *ngIf="eaddress.errors?.['required']">Required</small>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="">
+            <label for="esalary">Salary</label>
+            <div class="">
+              <input id="esalary" required #esalary="ngModel" ngModel name="esalary" type="number"
+                class="form-control" placeholder="Enter salary">
+              <div *ngIf="esalary.invalid && esalary.touched">
+                <small class="text-danger" *ngIf="esalary.errors?.['required']">Required</small>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="">
+            <label for="increment">Increment</label>
+            <div class="">
+              <input id="increment" required #increment="ngModel" ngModel name="increment" type="number"
+                class="form-control" placeholder="Enter increment">
+              <div *ngIf="increment.invalid && increment.touched">
+                <small class="text-danger" *ngIf="increment.errors?.['required']">Required</small>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="">
+            <label for="sales">Sales</label>
+            <div class="">
+              <input id="sales" required #sales="ngModel" ngModel name="sales" type="number"
+                class="form-control" placeholder="Enter sales">
+              <div *ngIf="sales.invalid && sales.touched">
+                <small class="text-danger" *ngIf="sales.errors?.['required']">Required</small>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="form-group text-center">
+            <input class="btn btn-primary" type="submit" value="Submit">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div><br>
+
+  <div class="mt-5">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+           <th>ID</th>
+          <th>Name</th>
+          <th>Mobile No</th>
+          <th>Address</th>
+          <th>Salary</th>
+          <th>Increment</th>
+          <th>Sales</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employeeDetails">
+          <td>{{employee.eid}}</td>
+          <td>{{employee.ename}}</td>
+          <td>{{employee.mobileno}}</td>
+          <td>{{employee.eaddress}}</td>
+          <td>{{employee.esalary}}</td>
+          <td>{{employee.increment}}</td>
+          <td>{{employee.sales}}</td>
+          <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="edit(employee)">Edit</button></td>
+          <td><button type="button" class="btn btn-danger" (click)="deleteEmployee(employee)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Update Employee</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #updateForm="ngForm" (ngSubmit)="updateEmployee()">
+            <h4 class="display-6 text-center py-2">Update Employee</h4>
+            
+            <div class="">
+              <label for="ename">Name</label>
+              <div class="">
+                <input id="ename" required #ename="ngModel" [(ngModel)]="employeeToUpdate.ename" name="ename" type="text"
+                  class="form-control" placeholder="Enter employee name">
+                <div *ngIf="ename.invalid && ename.touched">
+                  <small class="text-danger" *ngIf="ename.errors?.['required']">Required</small>
+                </div>
+              </div>
+            </div><br>
+            
+            <div class="">
+              <label for="mobileno">Mobile No</label>
+              <div class="">
+                <input id="mobileno" required #mobileno="ngModel" [(ngModel)]="employeeToUpdate.mobileno" name="mobileno" type="text"
+                  class="form-control" placeholder="Enter mobile number">
+                <div *ngIf="mobileno.invalid && mobileno.touched">
+                  <small class="text-danger" *ngIf="mobileno.errors?.['required']">Required</small>
+                </div>
+              </div>
+            </div><br>
+            
+            <div class="">
+              <label for="eaddress">Address</label>
+              <div class="">
+                <input id="eaddress" required #eaddress="ngModel" [(ngModel)]="employeeToUpdate.eaddress" name="eaddress" type="text"
+                  class="form-control" placeholder="Enter address">
+                <div *ngIf="eaddress.invalid && eaddress.touched">
+                  <small class="text-danger" *ngIf="eaddress.errors?.['required']">Required</small>
+                </div>
+              </div>
+            </div><br>
+  
+            <div class="">
+              <label for="esalary">Salary</label>
+              <div class="">
+                <input id="esalary" required #esalary="ngModel" [(ngModel)]="employeeToUpdate.esalary" name="esalary" type="number"
+                  class="form-control" placeholder="Enter salary">
+                <div *ngIf="esalary.invalid && esalary.touched">
+                  <small class="text-danger" *ngIf="esalary.errors?.['required']">Required</small>
+                </div>
+              </div>
+            </div><br>
+  
+            <div class="">
+              <label for="increment">Increment</label>
+              <div class="">
+                <input id="increment" required #increment="ngModel" [(ngModel)]="employeeToUpdate.increment" name="increment" type="number"
+                  class="form-control" placeholder="Enter increment">
+                <div *ngIf="increment.invalid && increment.touched">
+                  <small class="text-danger" *ngIf="increment.errors?.['required']">Required</small>
+                </div>
+              </div>
+            </div><br>
+  
+            <div class="">
+              <label for="sales">Sales</label>
+              <div class="">
+                <input id="sales" required #sales="ngModel" [(ngModel)]="employeeToUpdate.sales" name="sales" type="number"
+                  class="form-control" placeholder="Enter sales">
+                <div *ngIf="sales.invalid && sales.touched">
+                  <small class="text-danger" *ngIf="sales.errors?.['required']">Required</small>
+                </div>
+              </div>
+            </div><br>
+       
+            <div class="form-group text-center">
+              <input class="btn btn-primary" type="submit" value="Update">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
